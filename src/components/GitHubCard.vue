@@ -5,7 +5,7 @@
       <span class="username">{{ data['name'] }}</span>
       <span class="handle">@{{ data['login'] }}</span>
       <br>
-      <span class="description">{{ data['description'] }}</span>
+      <span class="description">{{ data['bio'] }}</span>
     </div>
   </div>
 </template>

@@ -29,20 +29,13 @@ export default {
       this.status = 1
       this.conflicts = []
       const urlName = encodeURIComponent(name)
-      const [respUser, respOrg] = await Promise.all([
-        fetch('https://api.github.com/users/' + urlName).then(resp => resp.json()),
-        fetch('https://api.github.com/orgs/' + urlName).then(resp => resp.json())
-      ]).catch(err => console.error(err))
+      const respUser = await fetch('https://api.github.com/users/' + urlName).then(resp => resp.json()).catch(err => console.error(err))
 
-      const orgExistent = Object.prototype.hasOwnProperty.call(respOrg, 'id')
       const userExistent = Object.prototype.hasOwnProperty.call(respUser, 'id')
-      if (!orgExistent && !userExistent) {
+      if (!userExistent) {
         this.status = 2
       } else {
         this.status = 3
-        if (orgExistent) {
-          this.conflicts.push(respOrg)
-        }
         if (userExistent) {
           this.conflicts.push(respUser)
         }
